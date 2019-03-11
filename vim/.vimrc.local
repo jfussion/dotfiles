@@ -1,5 +1,7 @@
-set listchars=tab\.\ ,trail:·
-set list
-set t_Co=256
-set guifont=Hack:h18
+source $HOME/.vim/colors/molokai.vim
+" set t_Co=256
+" set guifont=Hack:h18
 colorscheme molokai
+" set listchars=tab\.\ ,trail:·
+set listchars=tab:\.\ ,trail:·
+set list
