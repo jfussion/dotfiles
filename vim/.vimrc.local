@@ -6,3 +6,6 @@ set list
 "+++ Lines & Columns +++
 set cursorline
 set relativenumber
+
+let delimitMate_expand_cr = 1
+let g:loaded_endwise = 0
