@@ -1,0 +1,5 @@
+set listchars=tab\.\ ,trail:·
+set list
+set t_Co=256
+set guifont=Hack:h18
+colorscheme molokai
