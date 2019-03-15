@@ -34,3 +34,12 @@ autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 let g:go_list_type = "quickfix"
 
 let g:go_test_timeout = '10s'
+
+" vim-snippets chaged Filename function to vim_snippets#Filename
+" drupal vim still uses Filename
+fun! Filename(...)
+  let arg1 = get(a:000, 0, "$1")
+  let arg2 = get(a:000, 1, "")
+
+  return vim_snippets#Filename(arg1, arg2)
+endf
