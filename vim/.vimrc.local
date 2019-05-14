@@ -43,3 +43,21 @@ fun! Filename(...)
 
   return vim_snippets#Filename(arg1, arg2)
 endf
+
+" Arduino Config
+nnoremap <buffer> <leader>am :ArduinoVerify<CR>
+nnoremap <buffer> <leader>au :ArduinoUpload<CR>
+nnoremap <buffer> <leader>ad :ArduinoUploadAndSerial<CR>
+nnoremap <buffer> <leader>ab :ArduinoChooseBoard<CR>
+nnoremap <buffer> <leader>ap :ArduinoChooseProgrammer<CR>
+
+let g:arduino_serial_port = /dev/cu.SLAB_USBtoUART
+let g:arduino_serial_baud = 115200
+
+"vdebug mappings.
+if !exists('g:vdebug_options')
+      let g:vdebug_options = {}
+endif
+let g:vdebug_options['path_maps'] = {
+      \  '/app' : '/Users/josephbonilla/pantheon/debug/carltest1',
+    \}
