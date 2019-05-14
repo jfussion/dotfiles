@@ -1,2 +1,8 @@
-let g:python3_host_prog = '/usr/local/bin/python3'
-let g:python_host_prog = '/usr/local/bin/python'
+let uname = system('uname')
+if uname == 'Linux'
+  let g:python3_host_prog = '/usr/bin/python3'
+  let g:python_host_prog = '/usr/bin/python'
+else " If OSX
+  let g:python3_host_prog = '/usr/local/bin/python3'
+  let g:python_host_prog = '/usr/local/bin/python'
+endif
