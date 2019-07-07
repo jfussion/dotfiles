@@ -1,8 +1,8 @@
 let uname = system('uname')
-if uname == 'Darwin'
-  let g:python3_host_prog = '/usr/bin/python3'
-  let g:python_host_prog = '/usr/bin/python'
-else " If Linux 
+if uname=~'Darwin'
   let g:python3_host_prog = '/usr/local/bin/python3'
   let g:python_host_prog = '/usr/local/bin/python'
+else " If Linux
+  let g:python3_host_prog = '/usr/bin/python3'
+  let g:python_host_prog = '/usr/bin/python'
 endif
