@@ -39,8 +39,7 @@ alias lde='lando db-export'
 alias ldi='lando db-import'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-alias t1=/Users/josephbonilla/apps/vendor/bin/terminus
-alias terminus=/Users/josephbonilla/apps/terminus2/bin/terminus
+alias terminus=/Users/josephbonilla/apps/terminus/bin/terminus
 alias t=terminus
 
 # Install go path
