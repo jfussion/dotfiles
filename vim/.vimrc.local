@@ -58,6 +58,27 @@ let g:arduino_serial_baud = 115200
 if !exists('g:vdebug_options')
       let g:vdebug_options = {}
 endif
-let g:vdebug_options['path_maps'] = {
-      \  '/app' : '/Users/josephbonilla/pantheon/debug/carltest1',
-    \}
+
+" Fold unfold using space
+nnoremap <space> za
+
+" Clear search result
+nnoremap <leader>cl :noh<CR>
+
+" PEP 8 standard indention
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix
+
+"ignore files in NERDTree
+let NERDTreeIgnore=['\.pyc$', '\~$']
+
+let python_highlight_all=1
+syntax on
+
+autocmd BufWritePost *.py call flake8#Flake8()

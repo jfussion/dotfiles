@@ -39,12 +39,21 @@ alias lde='lando db-export'
 alias ldi='lando db-import'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-alias terminus=/Users/josephbonilla/apps/terminus/bin/terminus
+alias terminus=/Users/josephbonilla/apps/terminus/vendor/bin/terminus
 alias t=terminus
 
 # Install go path
 export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
 export PATH=$GOPATH/bin:$PATH
 
 # Arduino path
 export PATH=/Applications/Arduino.app/Contents/MacOS:$PATH
+
+export PATH="$HOME/.composer/vendor/bin:$PATH"
+
+#flutter
+export PATH="$HOME/development/flutter/bin:$PATH"
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
