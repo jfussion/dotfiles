@@ -1,84 +1,99 @@
-source $HOME/.vim/colors/molokai.vim
-colorscheme molokai
-set listchars=tab:\.\ ,trail:·
-set list
+colorscheme mustang " Editor overrides.
 
-"+++ Lines & Columns +++
-set cursorline
-set relativenumber
+set shiftwidth=2                " Use indents of 4 spaces
+set expandtab                   " Tabs are spaces, not tabs
+set tabstop=2                   " An indentation every four columns
+set softtabstop=2               " Let backspace delete indent
+set nospell
 
-let delimitMate_expand_cr = 1
-let g:loaded_endwise = 0
+" associate *.install and *.module files with with php filetype
+au BufReadPost *.install set syntax=php
+au BufReadPost *.module set syntax=php
+au BufReadPost *.inc set syntax=php
 
-" recommendations from https://github.com/fatih/vim-go-tutorial
-map <C-n> :cnext<CR>
-map <C-m> :cprevious<CR>
-nnoremap <leader>a :cclose<CR>
+" Easymotion
+map <Leader>j <Plug>(easymotion-prefix)
 
-autocmd FileType go nmap <leader>r  <Plug>(go-run)
-autocmd FileType go nmap <leader>t  <Plug>(go-test)
-autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+" Easier navigation through buffers
+map gn :bn<cr>
+map gp :bp<cr>
+map g1 :b1<cr>
+map g2 :b2<cr>
+map g3 :b3<cr>
+map g4 :b4<cr>
+map g5 :b5<cr>
+map g6 :b6<cr>
+map g7 :b7<cr>
+map g8 :b8<cr>
+nnoremap <leader>, :e#<cr>
 
-" run :GoBuild or :GoTestCompile based on the go file
-function! s:build_go_files()
-  let l:file = expand('%')
-  if l:file =~# '^\f\+_test\.go$'
-    call go#test#Test(0, 1)
-  elseif l:file =~# '^\f\+\.go$'
-    call go#cmd#Build(0)
-  endif
-endfunction
+" Don't let CtrlP changing the path.
+let g:ctrlp_working_path_mode = '0'
 
-autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+" Deocomplete
+let g:neocomplete#enable_at_startup = 0
 
-let g:go_list_type = "quickfix"
+" GO autocompletion
+set completeopt+=noselect
+call deoplete#custom#option('omni_patterns', {
+\ 'go': '[^. *\t]\.\w*',
+\})
 
-let g:go_test_timeout = '10s'
+" PHP autocompletion
+au FileType php set omnifunc=phpcomplete#CompletePHP
+let php_sql_query=1
+let php_htmlInStrings=1
 
-" vim-snippets chaged Filename function to vim_snippets#Filename
-" drupal vim still uses Filename
-fun! Filename(...)
-  let arg1 = get(a:000, 0, "$1")
-  let arg2 = get(a:000, 1, "")
+" Set tags file as hidden.
+set tags=./.tags;,.tags;
 
-  return vim_snippets#Filename(arg1, arg2)
-endf
-
-" Arduino Config
-nnoremap <buffer> <leader>am :ArduinoVerify<CR>
-nnoremap <buffer> <leader>au :ArduinoUpload<CR>
-nnoremap <buffer> <leader>ad :ArduinoUploadAndSerial<CR>
-nnoremap <buffer> <leader>ab :ArduinoChooseBoard<CR>
-nnoremap <buffer> <leader>ap :ArduinoChooseProgrammer<CR>
-
-let g:arduino_serial_port = /dev/cu.SLAB_USBtoUART
-let g:arduino_serial_baud = 115200
-
-"vdebug mappings.
+" Vdebug bundle and settings.
+Bundle 'joonty/vdebug.git'
 if !exists('g:vdebug_options')
-      let g:vdebug_options = {}
+  let g:vdebug_options = {}
 endif
+let g:vdebug_options['continuous_mode'] = 1
+let g:vdebug_options['break_on_open'] = 0
 
-" Fold unfold using space
-nnoremap <space> za
+" Disable folding.
+set nofoldenable
+let g:DisableAutoPHPFolding = 1
 
-" Clear search result
-nnoremap <leader>cl :noh<CR>
+" Ignore .git files in NERDTee.
+let NERDTreeIgnore = ['\.git$']
 
-" PEP 8 standard indention
-au BufNewFile,BufRead *.py
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=79 |
-    \ set expandtab |
-    \ set autoindent |
-    \ set fileformat=unix
+" Ignore some files and dirs with CtrP
+if exists("g:ctrlp_user_command")
+    unlet g:ctrlp_user_command
+endif
+let g:ctrlp_custom_ignore = {
+  \ 'file': '\.tags',
+  \ 'dir': 'sites/default/files/simpletest',
+  \ }
 
-"ignore files in NERDTree
-let NERDTreeIgnore=['\.pyc$', '\~$']
+syntax enable
 
-let python_highlight_all=1
-syntax on
+" ---------------
+" NERDTree
+" ---------------
+nnoremap <leader>nn :NERDTreeToggle<CR>
+nnoremap \ :NERDTreeToggle<CR>
+nnoremap <leader>nf :NERDTreeFind<CR>
+nnoremap \| :NERDTreeFind<CR>
+let g:NERDTreeShowBookmarks=1
+let g:NERDTreeChDirMode=2 " Change the NERDTree directory to the root node
+let g:NERDTreeHijackNetrw=0
+augroup luan_nerdtree
+  autocmd!
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+augroup END
 
-autocmd BufWritePost *.py call flake8#Flake8()
+" {{{ fzf
+let g:fzf_command_prefix = 'FZF'
+set rtp+=~/.vim/bundle/fzf
+runtime! config/plugin/fzf.vim
+"}}}
+
+" {{{vim-go
+nnoremap <leader>t :GoTest<CR>
+"}}}
